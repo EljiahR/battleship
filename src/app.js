@@ -25,7 +25,7 @@ function createGameboard(){
     
         placeShip(shipLength, start, end) {
             // Check if viable placement for ship of designated size
-            if((start[0] === end[0] || start[1] === end[1]) && (Math.abs(start[0] - end[0] + 1) === shipLength || Math.abs(start[1] - end[1] + 1 === shipLength))){
+            if((start[0] === end[0] || start[1] === end[1]) && (Math.abs(start[0] - end[0]) + 1 === shipLength || Math.abs(start[1] - end[1]) + 1 === shipLength)){
                 const newShip = createShip(shipLength);
                 // Check if placement is vertical
                 if(start[1] === end[1]){
@@ -45,16 +45,16 @@ function createGameboard(){
                         [yStart, yEnd] = [yEnd, yStart]
                     }
                     for(let i = yStart; i <= yEnd; i++){
-                        this.grid[i][start[0]] = newShip;
+                        this.grid[start[0]][i] = newShip;
                     }
                 }
             }
         },
         getInfo(coords){
-            return this.grid[coords[0]][coord[1]];
+            return this.grid[coords[0]][coords[1]];
         }
         
     }
 }
 
-export { createShip }
+export { createShip, createGameboard }

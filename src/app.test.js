@@ -22,11 +22,10 @@ describe('Ship objects',()=>{
 
 describe('Gameboard object tests',()=>{
     const mockGame = createGameboard();
-    const mockShip = createShip(3);
     
     test('placeShip() should set grid array values to reference the ship',()=>{
-        mockGame.placeShip(mockShip, [0,0], [0, 2]);
-        expect(mockGame.getInfo([0,0])).toBe(mockShip);
+        mockGame.placeShip(3, [0,0], [0, 2]);
+        expect(mockGame.getInfo([0,0])).toBe(mockGame.getInfo([0,2]));
     })
     
     test('recieveAttack() on [0,0] should set hits of mockShip to 1', ()=>{
