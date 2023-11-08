@@ -30,12 +30,12 @@ describe('Gameboard object tests',()=>{
     
     test('recieveAttack() on [0,0] should set hits of mockShip to 1', ()=>{
         mockGame.recieveAttack([0,0]);
-        expect(mockShip.getHits()).toBe(1);
+        expect(mockGame.getInfo([0,2]).getHits()).toBe(1);
     })
 
     test('recieveAttack() on [1,1] should be a miss and grid should be labeled as such',()=>{
         mockGame.recieveAttack([1,1]);
-        expect(mockGame.getInfo[1,1]).toBe('miss');
+        expect(mockGame.getInfo([1,1])).toBe('miss');
     })
 
     test('allShipsSunk() should return false', ()=>{
