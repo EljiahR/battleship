@@ -1,4 +1,4 @@
-import { createShip, createGameboard } from "./app.js"
+import { createShip, createGameboard, createPlayer } from "./app.js"
 
 describe('Ship objects',()=>{
     const mockShip = createShip(4);
@@ -62,10 +62,10 @@ describe('Player object functionality',()=>{
         expect(computer.board.getInfo([1,1])).toBe(computer.board.getInfo([2,1]))
     })
     test('Player misses ship shows results',()=>{
-        expect(player.fire([0,0],computer)).toBe('Miss!')
+        expect(player.fire(computer, [0,0])).toBe('Miss!')
     })
     test('Player hits ship shows results',()=>{
-        expect(player.fire([1,1],computer)).toBe('Hit at B2!')
+        expect(player.fire(computer, [1,1])).toBe('Hit at B2!')
     })
     test('Computer fires random shot',()=>{
         expect(computer.fire(),player).toBe('Miss!')

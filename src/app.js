@@ -1,3 +1,5 @@
+const yTranslate = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'K'};
+
 function createShip(length){
     return {
         length,
@@ -57,10 +59,12 @@ function createGameboard(){
         recieveAttack(coords){
             if(this.grid[coords[0]][coords[1]] === undefined){
                 this.grid[coords[0]][coords[1]] = 'miss';
+                return 'Miss!'
             }else if(this.grid[coords[0]][coords[1]] === 'miss'){
                 return;
             }else{
                 this.grid[coords[0]][coords[1]].hit();
+                return 'Hit!'
             }
         },
         allShipsSunk(){
@@ -73,4 +77,21 @@ function createGameboard(){
     }
 }
 
-export { createShip, createGameboard }
+function createPlayer(name, isComputer){
+    return {
+        name,
+        isComputer,
+        board: createGameboard(),
+        fire(opponent, coords){
+            let result = opponent.board.recieveAttack(coords);
+            if(result === 'Hit!'){
+                return `Hit at ${yTranslate[coords[1]]}${coords[0]+1}!`
+            }else{
+                return 'Miss!'
+            }
+        }
+    }
+
+}
+
+export { createShip, createGameboard, createPlayer }
