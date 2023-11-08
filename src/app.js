@@ -22,11 +22,12 @@ function createGameboard(){
         grid:[new Array(10),new Array(10),new Array(10),new Array(10),
             new Array(10),new Array(10),new Array(10),new Array(10),
             new Array(10),new Array(10)],
-    
+        ships: [],
         placeShip(shipLength, start, end) {
             // Check if viable placement for ship of designated size
             if((start[0] === end[0] || start[1] === end[1]) && (Math.abs(start[0] - end[0]) + 1 === shipLength || Math.abs(start[1] - end[1]) + 1 === shipLength)){
                 const newShip = createShip(shipLength);
+                this.ships.push(newShip);
                 // Check if placement is horizontal
                 if(start[1] === end[1]){
                     let xStart = start[0];
@@ -61,6 +62,12 @@ function createGameboard(){
             }else{
                 this.grid[coords[0]][coords[1]].hit();
             }
+        },
+        allShipsSunk(){
+            if(this.ships.filter((ship => !ship.isSunk())).length === 0){
+                return true;
+            }
+            return false;
         }
         
     }
