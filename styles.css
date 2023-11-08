@@ -1,11 +1,22 @@
+#root{
+    display: flex;
+    height: 100vh;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .game-grid{
     display:grid;
-    grid-template-columns: repeat(10,fr);
-    grid-template-rows: repeat(10,fr);
-    width: 300px;
-    height: 300px;
+    grid-template-columns: repeat(10,40px);
+    grid-template-rows: repeat(10,40px);
+    width: 400px;
+    height: 400px;
     border: 1px solid black;
 }
 .cell{
     border: 1px solid black;
+}
+
+.ship{
+    background-color: black;
 }
