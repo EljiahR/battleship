@@ -62,12 +62,17 @@ describe('Player object functionality',()=>{
         expect(computer.board.getInfo([1,1])).toBe(computer.board.getInfo([2,1]))
     })
     test('Player misses ship shows results',()=>{
-        expect(player.fire(computer, [0,0])).toBe('Miss!')
+        expect(player.fire(computer, [0,0])).toBe('Miss at A1!')
     })
     test('Player hits ship shows results',()=>{
         expect(player.fire(computer, [1,1])).toBe('Hit at B2!')
     })
     test('Computer fires random shot',()=>{
-        expect(computer.fire(),player).toBe('Miss!')
+        let result = computer.fire(player)
+        expect(result !== undefined).toBe(true)
+    })
+
+    test('Trying to fire at a missed cell results in random shot',()=>{
+        expect(player.fire(computer, [0,0])).not.toBe('Miss at A1!')
     })
 })

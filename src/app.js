@@ -1,4 +1,8 @@
-const yTranslate = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'K'};
+const yTranslate = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J'};
+
+function getRandom(min,max){
+    return Math.floor(Math.random() * (max - min) + min);
+}
 
 function createShip(length){
     return {
@@ -82,12 +86,15 @@ function createPlayer(name, isComputer){
         name,
         isComputer,
         board: createGameboard(),
-        fire(opponent, coords){
+        fire(opponent, coords = [getRandom(0,10), getRandom(0,10)]){
+            while(opponent.board.getInfo(coords) === 'miss'){
+                coords = [getRandom(0,10), getRandom(0,10)]
+            }
             let result = opponent.board.recieveAttack(coords);
             if(result === 'Hit!'){
                 return `Hit at ${yTranslate[coords[1]]}${coords[0]+1}!`
             }else{
-                return 'Miss!'
+                return `Miss at ${yTranslate[coords[1]]}${coords[0]+1}!`
             }
         }
     }
