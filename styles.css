@@ -1,0 +1,11 @@
+.game-grid{
+    display:grid;
+    grid-template-columns: repeat(10,fr);
+    grid-template-rows: repeat(10,fr);
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+}
+.cell{
+    border: 1px solid black;
+}
