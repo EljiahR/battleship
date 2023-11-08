@@ -87,6 +87,8 @@ function createPlayer(name, isComputer){
         isComputer,
         board: createGameboard(),
         fire(opponent, coords = [getRandom(0,10), getRandom(0,10)]){
+            // Prevents computer from shooting at already missed spaces,
+            // don't plan to allow for playes but who knows.
             while(opponent.board.getInfo(coords) === 'miss'){
                 coords = [getRandom(0,10), getRandom(0,10)]
             }
