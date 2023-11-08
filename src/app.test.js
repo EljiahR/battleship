@@ -48,3 +48,26 @@ describe('Gameboard object tests',()=>{
         expect(mockGame.allShipsSunk()).toBe(true);
     })
 })
+
+describe('Player object functionality',()=>{
+    const player = createPlayer('Joe', false);
+    const computer = createPlayer('Shmoe', true);
+    
+    test('Player places ship on their board',()=>{
+        player.board.placeShip(5, [4,2], [9,2])
+        expect(player.board.getInfo([4,2])).toBe(player.board.getInfo([7,2]))
+    })
+    test('Computer places ship on their board', ()=>{
+        computer.board.placeShip(3,[1,1],[3,1])
+        expect(computer.board.getInfo([1,1])).toBe(computer.board.getInfo([2,1]))
+    })
+    test('Player misses ship shows results',()=>{
+        expect(player.fire([0,0],computer)).toBe('Miss!')
+    })
+    test('Player hits ship shows results',()=>{
+        expect(player.fire([1,1],computer)).toBe('Hit at B2!')
+    })
+    test('Computer fires random shot',()=>{
+        expect(computer.fire(),player).toBe('Miss!')
+    })
+})
