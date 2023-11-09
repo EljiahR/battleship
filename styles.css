@@ -49,9 +49,13 @@ body{
 }
 
 .miss{
-    background-color: aqua;
+    background-color: aqua !important;
 }
 
 .hit{
-    background-color: firebrick;
+    background-color: firebrick !important;
+}
+
+.hidden > .cell{
+    background-color: white;
 }
