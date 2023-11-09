@@ -30,6 +30,7 @@ body{
     display:flex;
     justify-content: center;
     align-items: flex-start;
+    z-index: 2;
 }
 
 #container{
@@ -41,6 +42,13 @@ body{
     flex-direction: column;
     align-items: center;
     border: 3px solid steelblue;
+}
+#player-boats{
+    position: absolute;
+    height:80%;
+    width:50%;
+    background-color: darkcyan;
+    left:0
 }
 
 #computer{
@@ -92,7 +100,7 @@ p{
     align-items: center;
 }
 
-.ship{
+.ships{
     background-color: black;
 }
 
@@ -111,4 +119,12 @@ p{
 .name{
     padding-left: 20px;
     text-align: center;
+}
+.new-ship{
+    cursor: move;
+    background-color: black;
+    position: absolute;
+    width: 40px;
+    height: 120px;
+    border-radius: 50%;
 }
