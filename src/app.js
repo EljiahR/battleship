@@ -105,9 +105,9 @@ function createPlayer(name, isComputer){
             }
             let result = opponent.board.recieveAttack([y,x]);
             if(result === 'Hit!'){
-                return `Hit at ${yTranslate[y]}${x+1}!`
+                return {message:`Hit at ${yTranslate[y]}${x+1}!`, coordinates: [y,x]}
             }else{
-                return `Miss at ${yTranslate[y]}${x+1}!`
+                return {message:`Miss at ${yTranslate[y]}${x+1}!`, coordinates: [y,x]}
             }
         }
     }

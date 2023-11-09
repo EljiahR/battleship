@@ -52,14 +52,31 @@ function startGame(playerName = "Player", opponentName = "Computer", isOpponentC
     })
 
     playerGrid.addEventListener('click', (e) => {
-        let result = player.fire(opponent, [e.target.dataset.x,e.target.dataset.y])
-        console.log(result)
-        if(result.includes('Miss')){
-            e.target.classList.add('miss');
-            e.target.innerText = 'O'
-        }else if(result.includes('Hit')){
-            e.target.classList.add('hit')
-            e.target.innerText='X'
+        let playerResult = player.fire(opponent, [e.target.dataset.x,e.target.dataset.y])
+        // Getting true coordinates of shot if random
+        let playerTarget = document.querySelector(`.player[data-x="${playerResult.coordinates[0]}"][data-y="${playerResult.coordinates[1]}"]`)
+
+        console.log(playerResult.message)
+        if(playerResult.message.includes('Miss')){
+            playerTarget.classList.add('miss');
+            playerTarget.innerText = 'O'
+        }else if(playerResult.message.includes('Hit')){
+            playerTarget.classList.add('hit')
+            playerTarget.innerText='X'
+        }
+        if(opponent.isComputer){
+            let opponentResult = opponent.fire(player);
+            // Getting coordinates for random computer fire or miss retry
+            let opponentTarget = document.querySelector(`.opponent[data-x="${opponentResult.coordinates[0]}"][data-y="${opponentResult.coordinates[1]}"]`)
+
+
+            if(opponentResult.message.includes('Miss')){
+                opponentTarget.classList.add('miss');
+                opponentTarget.innerText = 'O'
+            }else if(opponentResult.message.includes('Hit')){
+                opponentTarget.classList.add('hit')
+                opponentTarget.innerText='X'
+            }
         }
     })
 
