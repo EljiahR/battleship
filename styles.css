@@ -24,6 +24,25 @@ body{
     justify-content: space-around;
     align-items: center;
 }
+.x-label{
+    display:grid;
+    grid-template-columns: repeat(10,40px);
+    padding-left: 20px;
+}
+.y-and-grid{
+    display: flex;
+}
+.y-label{
+    display: grid;
+    grid-template-rows: repeat(10,40px);
+    width:20px;
+}
+p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+}
 
 .game-grid{
     display:grid;
