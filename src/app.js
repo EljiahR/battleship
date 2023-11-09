@@ -72,11 +72,12 @@ function createGameboard(){
                 return;
             }else{
                 this.grid[coords[0]][coords[1]].hit();
+                this.grid[coords[0]][coords[1]] = 'hit';
                 return 'Hit!'
             }
         },
         allShipsSunk(){
-            if(this.ships.filter((ship => !ship.isSunk())).length === 0){
+            if(this.ships.filter((shipObject => !shipObject.ship.isSunk())).length === 0){
                 return true;
             }
             return false;
@@ -98,9 +99,9 @@ function createPlayer(name, isComputer){
             }
             let result = opponent.board.recieveAttack(coords);
             if(result === 'Hit!'){
-                return `Hit at ${yTranslate[coords[1]]}${coords[0]+1}!`
+                return `Hit at ${yTranslate[coords[0]]}${coords[1]+1}!`
             }else{
-                return `Miss at ${yTranslate[coords[1]]}${coords[0]+1}!`
+                return `Miss at ${yTranslate[coords[0]]}${coords[1]+1}!`
             }
         }
     }
