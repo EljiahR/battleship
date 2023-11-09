@@ -92,16 +92,22 @@ function createPlayer(name, isComputer){
         isComputer,
         board: createGameboard(),
         fire(opponent, coords = [getRandom(0,10), getRandom(0,10)]){
+            
+            // Translating dataset coords to actual numbers instead of strings   
+            let y = Number(coords[0]);
+            let x = Number(coords[1])
+            
             // Prevents computer from shooting at already missed spaces,
             // don't plan to allow for playes but who knows.
-            while(opponent.board.getInfo(coords) === 'miss'){
-                coords = [getRandom(0,10), getRandom(0,10)]
+            while(opponent.board.getInfo([y,x]) === 'miss' || opponent.board.getInfo([y,x]) == 'hit'){
+                y = getRandom(0,10);
+                x = getRandom(0,10);
             }
-            let result = opponent.board.recieveAttack(coords);
+            let result = opponent.board.recieveAttack([y,x]);
             if(result === 'Hit!'){
-                return `Hit at ${yTranslate[coords[0]]}${coords[1]+1}!`
+                return `Hit at ${yTranslate[y]}${x+1}!`
             }else{
-                return `Miss at ${yTranslate[coords[0]]}${coords[1]+1}!`
+                return `Miss at ${yTranslate[y]}${x+1}!`
             }
         }
     }
