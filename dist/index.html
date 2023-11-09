@@ -9,6 +9,20 @@
 </head>
 <body>
     <div id="header"><h1 id="title">BATTLESHIP</h1></div>
+    <div id="background">
+        <div id="container">
+            <h2 id="form-title"></h2>
+            <h3>Player's Name</h3>
+            <input type="text" name="player-name-input" id="player-name-input">
+            <h3>Opponent's Name</h3>
+            <input type="text" name="opponent-name-input" id="opponent-name-input">
+            <div id="computer">
+                <h4>Computer?</h4>
+                <input type="checkbox" name="computer-checkbox" id="computer-checkbox" checked>
+            </div>
+            <input type="button" value="Start" id="name-input">
+        </div>
+    </div>
     <div id="root">
         <div id="opponent-side">
             <div id="opponent-x-label" class="label x-label">
@@ -37,7 +51,7 @@
                     <p>J</p>
                 </div>
             </div>
-            <div id="opponent-name"></div>
+            <div id="opponent-name" class="name"></div>
         </div>
         <div id="player-side">
             <div id="player-x-label" class="label x-label">
@@ -66,7 +80,7 @@
                     <p>J</p>
                 </div>
             </div>
-            <div id="player-name"></div>
+            <div id="player-name" class="name"></div>
         </div>
     </div>
     <div id="footer"><h3 id="credit">By Elijah Reck</h3></div>

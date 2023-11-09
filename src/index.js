@@ -33,7 +33,7 @@ for(let i = 0; i < 10; i++){
 playerGridLocation.appendChild(playerGrid);
 opponentGridLocation.appendChild(opponentGrid);
 
-function startGame(playerName = "Player", opponentName = "Computer", isOpponentComputer = true){
+function startGame(playerName, opponentName, isOpponentComputer = true){
     // Creating player objects and setting labels
     const player = createPlayer(playerName, false);
     const opponent = createPlayer(opponentName, isOpponentComputer);
@@ -76,9 +76,11 @@ function startGame(playerName = "Player", opponentName = "Computer", isOpponentC
             if(opponent.board.allShipsSunk()){
                 alert(`${playerName} Wins!`)
                 opponentGrid.removeEventListener('click', attackOpponent)
+                return;
             }
         }
         if(opponent.isComputer){
+            
             let opponentResult = opponent.fire(player);
             // Getting coordinates for random computer fire or miss retry
             let opponentTarget = document.querySelector(`.player[data-x="${opponentResult.coordinates[0]}"][data-y="${opponentResult.coordinates[1]}"]`)
@@ -93,6 +95,7 @@ function startGame(playerName = "Player", opponentName = "Computer", isOpponentC
                 if(player.board.allShipsSunk()){
                     alert(`${opponentName} Wins!`)
                     opponentGrid.removeEventListener('click', attackOpponent)
+                    return;
                 }
             }
         }
@@ -102,5 +105,22 @@ function startGame(playerName = "Player", opponentName = "Computer", isOpponentC
 
 }
 
-startGame();
+function getName(){
+    let playerName = document.getElementById('player-name-input').value;
+    let opponentName = document.getElementById('opponent-name-input').value;
+    let isComputer = document.getElementById('computer-checkbox').checked;
+    if(isComputer){
+        opponentName = 'Computer'
+    }
+    if(playerName == ''){
+        playerName = 'Player'
+    }
+    document.getElementById('background').remove();
+
+    startGame(playerName, opponentName, isComputer);
+}
+
+document.getElementById('name-input').addEventListener('click',getName)
+
+
 
