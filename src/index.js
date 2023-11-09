@@ -120,6 +120,21 @@ function getName(){
     startGame(playerName, opponentName, isComputer);
 }
 
+// Dragging fuctionality
+let dragged;
+const ship = document.querySelector('.new-ship');
+ship.addEventListener('dragstart', (e)=>{
+    dragged = e.target
+})
+playerGrid.addEventListener('dragover',(e)=>{
+    e.preventDefault();
+})
+playerGrid.addEventListener('drop',(e)=>{
+    e.preventDefault();
+    dragged.parentNode.removeChild(dragged);
+    e.target.appendChild(dragged);
+})
+
 document.getElementById('name-input').addEventListener('click',getName)
 
 
