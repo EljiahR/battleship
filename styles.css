@@ -123,8 +123,22 @@ p{
 .new-ship{
     cursor: move;
     background-color: black;
-    position: absolute;
     border-radius: 50%;
+    position:absolute;
+}
+
+.not-placed.cruiser{
+    left:50px
+}
+.not-placed.submarine{
+    left: 100px
+}
+.not-placed.battleship{
+    top: 130px;
+}
+.not-placed.carrier{
+    top: 130px;
+    left: 50px;
 }
 .destroyer{
     width: 40px;
@@ -163,4 +177,9 @@ p{
 
 .dragged{
     background-color: aqua;
+}
+
+#player-boats{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
