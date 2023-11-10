@@ -122,17 +122,36 @@ function getName(){
 
 // Dragging fuctionality
 let dragged;
-const ship = document.querySelector('.new-ship');
-ship.addEventListener('dragstart', (e)=>{
-    dragged = e.target
+const allShips = document.querySelectorAll('.new-ship');
+window.addEventListener('keydown', (e)=>{
+    if(e.key == 'r' && dragged.classList.contains('new-ship')){
+        if(dragged.classList.contains('r')){
+            dragged.classList.remove('r')
+        }else{
+            dragged.classList.add('r')
+        }
+    }
 })
+
+allShips.forEach((ship)=>{
+    
+    ship.addEventListener('dragstart', (e)=>{
+        dragged = e.target
+        dragged.classList.add('dragged');
+    })
+})
+
 playerGrid.addEventListener('dragover',(e)=>{
     e.preventDefault();
 })
 playerGrid.addEventListener('drop',(e)=>{
     e.preventDefault();
-    dragged.parentNode.removeChild(dragged);
-    e.target.appendChild(dragged);
+    dragged.classList.remove('dragged')
+    if(dragged.parentNode != e.target && e.target != dragged){
+        console.log(dragged.parentNode, e.target)
+        dragged.parentNode.removeChild(dragged);
+        e.target.appendChild(dragged);
+    }
 })
 
 document.getElementById('name-input').addEventListener('click',getName)

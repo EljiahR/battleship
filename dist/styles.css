@@ -96,8 +96,8 @@ p{
 .cell{
     border: 1px solid black;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: start;
 }
 
 .ships{
@@ -124,7 +124,43 @@ p{
     cursor: move;
     background-color: black;
     position: absolute;
+    border-radius: 50%;
+}
+.destroyer{
+    width: 40px;
+    height: 80px;
+}
+.destroyer.r{
+    width: 80px;
+    height: 40px;
+}
+.cruiser,.submarine{
+    width: 120px;
+    height: 40px;
+}
+.cruiser.r,.submarine.r{
     width: 40px;
     height: 120px;
-    border-radius: 50%;
+}
+
+.battleship{
+    width: 160px;
+    height: 40px;
+}
+.battleship.r{
+    width: 40px;
+    height: 160px;
+}
+
+.carrier{
+    height: 200px;
+    width: 40px;
+}
+.carrier.r{
+    height: 40px;
+    width: 200px;
+}
+
+.dragged{
+    background-color: aqua;
 }
