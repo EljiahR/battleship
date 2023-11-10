@@ -135,21 +135,21 @@ p{
     height: 40px;
 }
 .cruiser,.submarine{
-    width: 120px;
-    height: 40px;
-}
-.cruiser.r,.submarine.r{
     width: 40px;
     height: 120px;
 }
-
-.battleship{
-    width: 160px;
+.cruiser.r,.submarine.r{
+    width: 120px;
     height: 40px;
 }
-.battleship.r{
+
+.battleship{
     width: 40px;
     height: 160px;
+}
+.battleship.r{
+    width: 160px;
+    height: 40px;
 }
 
 .carrier{

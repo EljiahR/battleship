@@ -122,12 +122,21 @@ function getName(){
 
 // Dragging fuctionality
 let dragged;
+let shipLength;
 const allShips = document.querySelectorAll('.new-ship');
 window.addEventListener('keydown', (e)=>{
     if(e.key == 'r' && dragged.classList.contains('new-ship')){
+        
         if(dragged.classList.contains('r')){
+            
+            if(Number(dragged.parentNode.dataset.x) + shipLength > 10){
+                return;
+            }
             dragged.classList.remove('r')
         }else{
+            if(Number(dragged.parentNode.dataset.y) + shipLength > 10){
+                return;
+            }
             dragged.classList.add('r')
         }
     }
@@ -136,7 +145,8 @@ window.addEventListener('keydown', (e)=>{
 allShips.forEach((ship)=>{
     
     ship.addEventListener('dragstart', (e)=>{
-        dragged = e.target
+        dragged = e.target;
+        shipLength = Number(dragged.dataset.length)
         dragged.classList.add('dragged');
     })
 })
@@ -147,12 +157,26 @@ playerGrid.addEventListener('dragover',(e)=>{
 playerGrid.addEventListener('drop',(e)=>{
     e.preventDefault();
     dragged.classList.remove('dragged')
+    // Make sure location is valid, and had issues when moving to a spot that was partially covered by self
     if(dragged.parentNode != e.target && e.target != dragged){
+        // Checks orientation of boat
+        if(dragged.classList.contains('r')){
+            if(Number(e.target.dataset.y) + shipLength > 10){
+                // Exit function
+                return;
+            }
+        }else{
+            if(Number(e.target.dataset.x) + shipLength > 10){
+                return;
+            }
+        }
+
         console.log(dragged.parentNode, e.target)
         dragged.parentNode.removeChild(dragged);
         e.target.appendChild(dragged);
     }
 })
+
 
 document.getElementById('name-input').addEventListener('click',getName)
 
