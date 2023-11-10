@@ -123,6 +123,13 @@ function getName(){
 // Dragging fuctionality
 let dragged;
 let shipLength;
+let shipCoordinates = {
+    "destroyer": null,
+    "cruiser": null,
+    "submarine": null,
+    "battleship": null,
+    "carrier": null,
+}
 const allShips = document.querySelectorAll('.new-ship');
 window.addEventListener('keydown', (e)=>{
     if(e.key == 'r' && dragged.classList.contains('new-ship')){
@@ -171,7 +178,24 @@ playerGrid.addEventListener('drop',(e)=>{
             }
         }
 
-        console.log(dragged.parentNode, e.target)
+        if(dragged.classList.contains('not-placed')){
+            dragged.classList.remove('not-placed')
+        }
+        if(dragged.classList.contains('destroyer')){
+            shipCoordinates["destroyer"] = [Number(e.target.dataset.y), Number(e.target.dataset.x)]
+        } else if(dragged.classList.contains('cruiser')){
+            shipCoordinates["cruiser"] = [Number(e.target.dataset.y), Number(e.target.dataset.x)]
+        } else if(dragged.classList.contains('submarine')){
+            shipCoordinates["submarine"] = [Number(e.target.dataset.y), Number(e.target.dataset.x)]
+        } else if(dragged.classList.contains('battleship')){
+            shipCoordinates["battleship"] = [Number(e.target.dataset.y), Number(e.target.dataset.x)]
+        } else if(dragged.classList.contains('carrier')){
+            shipCoordinates["carrier"] = [Number(e.target.dataset.y), Number(e.target.dataset.x)]
+        }
+        if(shipCoordinates['destroyer'] && shipCoordinates['cruiser'] && shipCoordinates['submarine'] 
+        && shipCoordinates['battleship'] && shipCoordinates['carrier']){
+            document.getElementById('player-submit-ships').disabled = false
+        }
         dragged.parentNode.removeChild(dragged);
         e.target.appendChild(dragged);
     }

@@ -25,11 +25,11 @@
     </div>
     <div id="root">
         <div id="player-boats">
-            <div draggable="true" class="new-ship destroyer" id="player-destroyer" data-length="2"></div>
-            <div draggable="true" class="new-ship submarine" id="player-submarine" data-length="3"></div>
-            <div draggable="true" class="new-ship cruiser" id="player-cruiser" data-length="3"></div>
-            <div draggable="true" class="new-ship battleship" id="player-battleship" data-length="4"></div>
-            <div draggable="true" class="new-ship carrier" id="player-carrier" data-length="5"></div>
+            <div draggable="true" class="new-ship destroyer not-placed" id="player-destroyer" data-length="2"></div>
+            <div draggable="true" class="new-ship submarine not-placed" id="player-submarine" data-length="3"></div>
+            <div draggable="true" class="new-ship cruiser not-placed" id="player-cruiser" data-length="3"></div>
+            <div draggable="true" class="new-ship battleship not-placed" id="player-battleship" data-length="4"></div>
+            <div draggable="true" class="new-ship carrier not-placed" id="player-carrier" data-length="5"></div>
         </div>
         <div id="opponent-side">
             <div id="opponent-x-label" class="label x-label">
@@ -88,6 +88,7 @@
                 </div>
             </div>
             <div id="player-name" class="name">Player's Board</div>
+            <button id="player-submit-ships" disabled="disabled">Ready?</button>
         </div>
     </div>
     <div id="footer"><h3 id="credit">By Elijah Reck</h3></div>
