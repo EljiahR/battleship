@@ -96,7 +96,7 @@ p{
 .cell{
     border: 1px solid black;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: start;
 }
 
@@ -141,37 +141,37 @@ p{
     left: 50px;
 }
 .destroyer{
-    width: 40px;
+    width: 30px;
     height: 80px;
 }
 .destroyer.r{
     width: 80px;
-    height: 40px;
+    height: 30px;
 }
 .cruiser,.submarine{
-    width: 40px;
+    width: 30px;
     height: 120px;
 }
 .cruiser.r,.submarine.r{
     width: 120px;
-    height: 40px;
+    height: 30px;
 }
 
 .battleship{
-    width: 40px;
+    width: 30px;
     height: 160px;
 }
 .battleship.r{
     width: 160px;
-    height: 40px;
+    height: 30px;
 }
 
 .carrier{
     height: 200px;
-    width: 40px;
+    width: 30px;
 }
 .carrier.r{
-    height: 40px;
+    height: 30px;
     width: 200px;
 }
 
