@@ -33,7 +33,7 @@ for(let i = 0; i < 10; i++){
 playerGridLocation.appendChild(playerGrid);
 opponentGridLocation.appendChild(opponentGrid);
 
-function startGame(playerName, opponentName, isOpponentComputer = true){
+function startGame(playerName, opponentName, isOpponentComputer, playerShips){
     // Creating player objects and setting labels
     const player = createPlayer(playerName, false);
     const opponent = createPlayer(opponentName, isOpponentComputer);
@@ -45,7 +45,12 @@ function startGame(playerName, opponentName, isOpponentComputer = true){
     opponentGrid.classList.add('hidden');
 
     // Faux data for testing
-    player.board.placeShip(3,[0,0],[0,2]);
+    //player.board.placeShip(3,[0,0],[0,2]);
+    //Adding player ships to board
+    playerShips.forEach(ship =>{
+        player.board.placeShip(ship[2], ship[0], ship[1])
+    })
+    
     opponent.board.placeShip(4,[5,6],[8,6]);
     
     //Placing the players ships on their board
@@ -69,10 +74,10 @@ function startGame(playerName, opponentName, isOpponentComputer = true){
         console.log(playerResult.message)
         if(playerResult.message.includes('Miss')){
             playerTarget.classList.add('miss');
-            playerTarget.innerText = 'O'
+            //playerTarget.innerText = 'O'
         }else if(playerResult.message.includes('Hit')){
             playerTarget.classList.add('hit')
-            playerTarget.innerText='X'
+            //playerTarget.innerText='X'
             if(opponent.board.allShipsSunk()){
                 alert(`${playerName} Wins!`)
                 opponentGrid.removeEventListener('click', attackOpponent)
@@ -88,10 +93,10 @@ function startGame(playerName, opponentName, isOpponentComputer = true){
 
             if(opponentResult.message.includes('Miss')){
                 opponentTarget.classList.add('miss');
-                opponentTarget.innerText = 'O'
+                //opponentTarget.innerText = 'O'
             }else if(opponentResult.message.includes('Hit')){
                 opponentTarget.classList.add('hit')
-                opponentTarget.innerText='X'
+                //opponentTarget.innerText='X'
                 if(player.board.allShipsSunk()){
                     alert(`${opponentName} Wins!`)
                     opponentGrid.removeEventListener('click', attackOpponent)
@@ -105,10 +110,12 @@ function startGame(playerName, opponentName, isOpponentComputer = true){
 
 }
 
+let playerName, opponentName, isComputer;
+
 function getName(){
-    let playerName = document.getElementById('player-name-input').value;
-    let opponentName = document.getElementById('opponent-name-input').value;
-    let isComputer = document.getElementById('computer-checkbox').checked;
+    playerName = document.getElementById('player-name-input').value;
+    opponentName = document.getElementById('opponent-name-input').value;
+    isComputer = document.getElementById('computer-checkbox').checked;
     if(isComputer){
         opponentName = 'Computer'
     }
@@ -117,7 +124,7 @@ function getName(){
     }
     document.getElementById('background').remove();
 
-    startGame(playerName, opponentName, isComputer);
+    //startGame(playerName, opponentName, isComputer);
 }
 
 // Dragging fuctionality
@@ -201,8 +208,39 @@ playerGrid.addEventListener('drop',(e)=>{
     }
 })
 
+function getShipCoordinates(side){
+    
+    const theseShips = [];
+    theseShips.push([document.getElementById(`${side}-destroyer`),1])
+    theseShips.push([document.getElementById(`${side}-cruiser`),2])
+    theseShips.push([document.getElementById(`${side}-submarine`),2])
+    theseShips.push([document.getElementById(`${side}-battleship`),3])
+    theseShips.push([document.getElementById(`${side}-carrier`),4])
+    const shipCoordinates = [];
+    theseShips.forEach(ship =>{
+        if(ship[0].classList.contains('r')){
+            shipCoordinates.push([[Number(ship[0].parentNode.dataset.x),Number(ship[0].parentNode.dataset.y)],
+            [Number(ship[0].parentNode.dataset.x), Number(ship[0].parentNode.dataset.y) + ship[1]], ship[1]+1])
+        }else{
+            shipCoordinates.push([[Number(ship[0].parentNode.dataset.x),Number(ship[0].parentNode.dataset.y)],
+            [Number(ship[0].parentNode.dataset.x) + ship[1], Number(ship[0].parentNode.dataset.y)], ship[1]+1])
+        }
+    })
+    if(isComputer){
+        document.getElementById('player-boats').remove();
+        document.getElementById('player-submit-ships').remove();
+        startGame(playerName, opponentName, isComputer, shipCoordinates)
+        
+    }
+    
+}
 
 document.getElementById('name-input').addEventListener('click',getName)
+
+document.getElementById('player-submit-ships').addEventListener('click', (e)=>{
+    e.preventDefault();
+    getShipCoordinates('player')
+})
 
 
 
