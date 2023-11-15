@@ -96,7 +96,7 @@ p{
 .cell{
     border: 1px solid black;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: start;
 }
 
@@ -183,6 +183,6 @@ p{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-.hidden{
+.boat-container.hidden{
     display: none;
 }
