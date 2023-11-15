@@ -1,5 +1,9 @@
 import { createPlayer } from "./app";
 
+function randomNumber(min,max){
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 const playerGridLocation = document.getElementById('player-y-and-grid');
 const opponentGridLocation = document.getElementById('opponent-y-and-grid');
 
@@ -38,9 +42,6 @@ function startGame(playerName, opponentName, isOpponentComputer, playerShips){
     const player = createPlayer(playerName, false);
     const opponent = createPlayer(opponentName, isOpponentComputer);
 
-    document.getElementById('player-name').innerText = playerName + "'s Board";
-    document.getElementById('opponent-name').innerText = opponentName + "'s Board";
-
     //Hiding opponent boats
     opponentGrid.classList.add('hidden');
 
@@ -74,10 +75,10 @@ function startGame(playerName, opponentName, isOpponentComputer, playerShips){
         console.log(playerResult.message)
         if(playerResult.message.includes('Miss')){
             playerTarget.classList.add('miss');
-            //playerTarget.innerText = 'O'
+            playerTarget.innerText = 'O'
         }else if(playerResult.message.includes('Hit')){
             playerTarget.classList.add('hit')
-            //playerTarget.innerText='X'
+            playerTarget.innerText +='X'
             if(opponent.board.allShipsSunk()){
                 alert(`${playerName} Wins!`)
                 opponentGrid.removeEventListener('click', attackOpponent)
@@ -93,10 +94,10 @@ function startGame(playerName, opponentName, isOpponentComputer, playerShips){
 
             if(opponentResult.message.includes('Miss')){
                 opponentTarget.classList.add('miss');
-                //opponentTarget.innerText = 'O'
+                opponentTarget.innerText = 'O'
             }else if(opponentResult.message.includes('Hit')){
                 opponentTarget.classList.add('hit')
-                //opponentTarget.innerText='X'
+                opponentTarget.innerHTML +='X'
                 if(player.board.allShipsSunk()){
                     alert(`${opponentName} Wins!`)
                     opponentGrid.removeEventListener('click', attackOpponent)
@@ -123,6 +124,8 @@ function getName(){
         playerName = 'Player'
     }
     document.getElementById('background').remove();
+    document.getElementById('player-name').innerText = playerName + "'s Board";
+    document.getElementById('opponent-name').innerText = opponentName + "'s Board";
 
     //startGame(playerName, opponentName, isComputer);
 }
@@ -233,6 +236,74 @@ function getShipCoordinates(side){
         
     }
     
+}
+
+function randomCoordinates(side){
+    const theseShips = [];
+    theseShips.push([document.getElementById(`${side}-carrier`),4])
+    theseShips.push([document.getElementById(`${side}-battleship`),3])
+    theseShips.push([document.getElementById(`${side}-cruiser`),2])
+    theseShips.push([document.getElementById(`${side}-submarine`),2])
+    theseShips.push([document.getElementById(`${side}-destroyer`),1])
+    
+    const shipCoordinates = [];
+    const usedCoordinates =[];
+    theseShips.forEach(ship=>{
+        let rotated = false;
+        if(randomNumber(0,2) == 1){
+            rotated = true
+        }
+        let x = randomNumber(0, 10);
+        let y = randomNumber(0, 10);
+        let placed = false;
+        while(!placed){
+            if(rotated){
+                let overlap = false;
+                let currentSpaces = [];
+                for(let i = y; i <= y + ship[1]; i++){
+                    currentSpaces.push([x,i])
+                    if(usedCoordinates.includes([x,i])){
+                        overlap = true;
+                    }
+                }
+                if(y+ship[1] <= 9 && !overlap){
+                    shipCoordinates.push([[x,y],[x,y+ship[1]],ship[1]+1]);
+                    usedCoordinates.concat(currentSpaces);
+                    placed = true;
+                }else {
+                    x = randomNumber(0, 10);
+                    y = randomNumber(0, 10);
+                    if(randomNumber(0,2) == 1){
+                        rotated = true
+                    } else {
+                        rotated = false;
+                    }
+                }
+            } else {
+                let overlap = false;
+                let currentSpaces = [];
+                for(let i = x; i <= x + ship[1]; i++){
+                    currentSpaces.push([x,i])
+                    if(usedCoordinates.includes([i,y])){
+                        overlap = true;
+                    }
+                }
+                if(x+ship[1] <= 9 && !overlap){
+                    shipCoordinates.push([[x,y],[x+ship[1],y],ship[1]+1]);
+                    usedCoordinates.concat(currentSpaces);
+                    placed = true;
+                }else {
+                    x = randomNumber(0, 10);
+                    y = randomNumber(0, 10);
+                    if(randomNumber(0,2) == 1){
+                        rotated = true
+                    } else {
+                        rotated = false;
+                    }
+                }
+            }
+        }
+    })
 }
 
 document.getElementById('name-input').addEventListener('click',getName)
