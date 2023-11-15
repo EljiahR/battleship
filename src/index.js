@@ -37,13 +37,13 @@ for(let i = 0; i < 10; i++){
 playerGridLocation.appendChild(playerGrid);
 opponentGridLocation.appendChild(opponentGrid);
 
-function startGame(playerName, opponentName, isOpponentComputer, playerShips){
+function startGame(playerName, opponentName, isOpponentComputer, playerShips, opponentShips = randomCoordinates("opponent")){
     // Creating player objects and setting labels
     const player = createPlayer(playerName, false);
     const opponent = createPlayer(opponentName, isOpponentComputer);
 
     //Hiding opponent boats
-    opponentGrid.classList.add('hidden');
+    //opponentGrid.classList.add('hidden');
 
     // Faux data for testing
     //player.board.placeShip(3,[0,0],[0,2]);
@@ -52,7 +52,9 @@ function startGame(playerName, opponentName, isOpponentComputer, playerShips){
         player.board.placeShip(ship[2], ship[0], ship[1])
     })
     
-    opponent.board.placeShip(4,[5,6],[8,6]);
+    opponentShips.forEach(ship =>{
+        opponent.board.placeShip(ship[2], ship[0], ship[1])
+    })
     
     //Placing the players ships on their board
     player.board.ships.forEach(ship =>{
@@ -262,14 +264,28 @@ function randomCoordinates(side){
                 let currentSpaces = [];
                 for(let i = y; i <= y + ship[1]; i++){
                     currentSpaces.push([x,i])
-                    if(usedCoordinates.includes([x,i])){
-                        overlap = true;
-                    }
+                    
+                    usedCoordinates.forEach(coord=>{
+                        if(coord.toString() === [x,i].toString()){
+                            
+                            overlap = true;
+                            return;
+                        }
+                    })
                 }
                 if(y+ship[1] <= 9 && !overlap){
                     shipCoordinates.push([[x,y],[x,y+ship[1]],ship[1]+1]);
-                    usedCoordinates.concat(currentSpaces);
+                    currentSpaces.forEach(coord=>{
+                        usedCoordinates.push(coord);
+                    })
                     placed = true;
+                    
+                    let cell = document.querySelector(`.${side}[data-x="${x}"][data-y="${y}"]`)
+                    if(!ship[0].classList.contains('r')) ship[0].classList.add('r');
+                    ship[0].classList.remove('not-placed')
+                    ship[0].parentNode.removeChild(ship[0]);
+                    cell.appendChild(ship[0]);
+
                 }else {
                     x = randomNumber(0, 10);
                     y = randomNumber(0, 10);
@@ -283,15 +299,27 @@ function randomCoordinates(side){
                 let overlap = false;
                 let currentSpaces = [];
                 for(let i = x; i <= x + ship[1]; i++){
-                    currentSpaces.push([x,i])
-                    if(usedCoordinates.includes([i,y])){
-                        overlap = true;
-                    }
+                    currentSpaces.push([i,y])
+                    usedCoordinates.forEach(coord=>{
+                        if(coord.toString() === [i,y].toString()){
+                            overlap = true;
+                            return;
+                        }
+                    })
                 }
                 if(x+ship[1] <= 9 && !overlap){
                     shipCoordinates.push([[x,y],[x+ship[1],y],ship[1]+1]);
-                    usedCoordinates.concat(currentSpaces);
+                    currentSpaces.forEach(coord=>{
+                        usedCoordinates.push(coord);
+                    })
                     placed = true;
+
+                    let cell = document.querySelector(`.${side}[data-x="${x}"][data-y="${y}"]`)
+                    if(ship[0].classList.contains('r')) ship[0].classList.remove('r');
+                    ship[0].classList.remove('not-placed')
+                    ship[0].parentNode.removeChild(ship[0]);
+                    cell.appendChild(ship[0]);
+
                 }else {
                     x = randomNumber(0, 10);
                     y = randomNumber(0, 10);
@@ -304,6 +332,8 @@ function randomCoordinates(side){
             }
         }
     })
+    
+    return shipCoordinates;
 }
 
 document.getElementById('name-input').addEventListener('click',getName)
@@ -313,5 +343,9 @@ document.getElementById('player-submit-ships').addEventListener('click', (e)=>{
     getShipCoordinates('player')
 })
 
+document.getElementById('player-random').addEventListener('click', (e)=>{
+    e.preventDefault();
+    randomCoordinates('player');
+})
 
 
