@@ -332,6 +332,7 @@ function randomCoordinates(side){
             }
         }
     })
+    if(side === 'player') document.getElementById('player-submit-ships').disabled = false
     
     return shipCoordinates;
 }

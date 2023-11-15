@@ -180,9 +180,28 @@ p{
 }
 
 #player-boats{
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    display:flex;
 }
 .boat-container.hidden{
     display: none;
+}
+
+#opponent-destroyer.hidden{
+    display: none;
+}
+#opponent-cruiser.hidden{
+    display: none;
+}
+#opponent-submarine.hidden{
+    display: none;
+}
+#opponent-battleship.hidden{
+    display: none;
+}
+#opponent-carrier.hidden{
+    display: none;
+}
+
+#player-random{
+    align-self: flex-end;
 }
